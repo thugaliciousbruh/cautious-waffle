@@ -26,7 +26,16 @@
         fetch('https://raw.githubusercontent.com/NoahsAmazingTutoringHelp/Noahs-Calculus-Tutor/refs/heads/master/index.html')
             .then(r => r.text())
             .then(html => {
+                const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+                if (titleMatch && titleMatch[1]) {
+                    document.title = titleMatch[1].trim();
+                }
+                
                 document.getElementById('frame').srcdoc = html;
+            })
+            .catch(error => {
+                console.error('Error loading content:', error);
+                document.title = 'Error Loading Content';
             });
     </script>
 </body>
